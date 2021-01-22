@@ -13,7 +13,7 @@ public class DamagePopup : MonoBehaviour
 
     public void Setup(float amount)
     {
-        float RandomSize = Random.Range(0.5f, 1);
+        float RandomSize = Random.Range(0.5f, 0.7f);
 
         DamageText.text = "" + amount;
         this.transform.localScale = new Vector3(RandomSize, RandomSize);
