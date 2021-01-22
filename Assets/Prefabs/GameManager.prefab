@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8851066323368172918}
   - component: {fileID: 8851066323368172917}
+  - component: {fileID: 5478747099554341678}
   - component: {fileID: 6478782765473620277}
   m_Layer: 0
   m_Name: GameManager
@@ -44,6 +45,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fec1d95b34b2144cb1976d7776e9488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentGameState: 0
+  playerController: {fileID: 0}
+  enemyController: {fileID: 0}
+  stageManager: {fileID: 0}
+  upgradeWindow: {fileID: 0}
+--- !u!114 &5478747099554341678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8851066323368172916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af8af9573a3c81d4d931f1d477c67f46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentStage: 0
+  stages:
+  - AmountOfEnemies: 10
+  - AmountOfEnemies: 15
+  - AmountOfEnemies: 25
+  - AmountOfEnemies: 35
+  - AmountOfEnemies: 50
 --- !u!114 &6478782765473620277
 MonoBehaviour:
   m_ObjectHideFlags: 0

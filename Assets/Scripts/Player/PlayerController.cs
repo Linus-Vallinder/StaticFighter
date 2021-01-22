@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("PlayerStats")]
+    [Header("Player Stats")]
     public float MaxHealth;
 
     [Space]
@@ -12,8 +12,11 @@ public class PlayerController : MonoBehaviour
 
     [Space]
     public float Strength = 5f;
-    public float Intelligence = 5f;
     public float Agility = 5f;
+    public float Constitution = 5f;
+
+    [Header("Attack Stats")]
+    public float BaseAttack;
 
     [Header("Player UI")]
     public HealthBar HealthBar;
@@ -28,6 +31,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.CurrentGameState != GameState.PLAYING)
+        {
+            return;
+        }
+
         HealthBar.UpdateHealthBar(MaxHealth, CurrentHealth);
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -43,12 +51,17 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
+        if (GameManager.Instance.CurrentGameState != GameState.PLAYING)
+        {
+            return;
+        }
+
         DealDamage(AttackDamage());
     }
 
     private float AttackDamage()
     {
-        float damage = Strength * Agility;
+        float damage = Mathf.RoundToInt(BaseAttack + Random.Range(1, Strength * Agility));
         return damage;
     }
 
@@ -71,6 +84,5 @@ public class PlayerController : MonoBehaviour
         {
             EventManager.Instance.OnDamage(false, 0);
         }
-
     }
 }

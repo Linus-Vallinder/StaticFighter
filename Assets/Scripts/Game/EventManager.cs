@@ -39,4 +39,14 @@ public class EventManager : MonoBehaviour
             this.Damage.Invoke(hit, damage);
         }
     }
+
+    public delegate void CompleteStage();
+    public event CompleteStage ClearStage;
+    public void OnClearStage()
+    {
+        if (ClearStage != null)
+        {
+            this.ClearStage.Invoke();
+        }
+    }
 }
