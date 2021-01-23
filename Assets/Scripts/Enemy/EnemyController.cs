@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [Header("PlayerStats")]
+    [Header("EnemyStats")]
     public float MaxHealth;
 
     [Space]
@@ -15,11 +13,14 @@ public class EnemyController : MonoBehaviour
     public float Intelligence = 5f;
     public float Agility = 5f;
 
-    [Header("Player UI")]
+    [Header("Enemy UI")]
     public HealthBar HealthBar;
 
     [Space]
     public GameObject Popup;
+
+    [Header("Effects")]
+    public ParticleSystem hitEffect;
 
     private void Awake()
     {
@@ -52,7 +53,7 @@ public class EnemyController : MonoBehaviour
         float RandomNumberOne = Random.Range(-5, 5);
         float RandomNumberTwo = Random.Range(-5, 5);
 
-        var clone = Instantiate(Popup, this.transform.position + new Vector3(0,1,0), Quaternion.identity);
+        var clone = Instantiate(Popup, this.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
         clone.GetComponent<DamagePopup>().Setup(damage);
         clone.GetComponent<DamagePopup>().rb2d.AddForce((Vector2.up * 5) + new Vector2(RandomNumberOne, RandomNumberTwo), ForceMode2D.Impulse);
     }

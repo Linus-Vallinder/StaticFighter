@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +7,9 @@ public class PlayerController : MonoBehaviour
 
     [Space]
     public float CurrentHealth;
+
+    [Space]
+    public int SkillPoints = 0;
 
     [Space]
     public float Strength = 5f;
@@ -79,6 +80,7 @@ public class PlayerController : MonoBehaviour
         {
             EventManager.Instance.OnDamage(true, Damage);
             Enemy.CurrentHealth -= Damage;
+            Enemy.hitEffect.Play();
         }
         else
         {

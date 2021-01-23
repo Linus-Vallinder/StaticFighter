@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
     public int CurrentStage;
-    
+
     [Space]
     public Stage[] stages;
 
@@ -16,13 +14,14 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         EventManager.Instance.EnemyDeath += KilledEnemy;
+        EventManager.Instance.ClearStage += ClearStage;
     }
 
     private void Update()
     {
-        if (StageKillCount == stages[CurrentStage].AmountOfEnemies)
+        if (StageKillCount == stages[CurrentStage].AmountOfEnemies && GameManager.Instance.CurrentGameState == GameState.PLAYING)
         {
-            ClearStage();
+            EventManager.Instance.OnClearStage();
         }
     }
 
@@ -34,6 +33,7 @@ public class StageManager : MonoBehaviour
     public void ClearStage()
     {
         GameManager.Instance.CurrentGameState = GameState.UPGRADING;
+        GameManager.Instance.playerController.SkillPoints++;
     }
 
     public void NextStage()
