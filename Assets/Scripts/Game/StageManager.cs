@@ -8,8 +8,8 @@ public class StageManager : MonoBehaviour
     public Stage[] stages;
 
     [Space]
-    private int StageKillCount = 0;
-    private int KillAmount = 0;
+    public int StageKillCount = 0;
+    public int KillAmount = 0;
 
     private void Start()
     {

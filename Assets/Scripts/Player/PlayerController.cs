@@ -16,9 +16,6 @@ public class PlayerController : MonoBehaviour
     public float Agility = 5f;
     public float Constitution = 5f;
 
-    [Header("Attack Stats")]
-    public float BaseAttack;
-
     [Header("Player UI")]
     public HealthBar HealthBar;
 
@@ -28,6 +25,19 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         SetUp();
+    }
+
+    private void Start()
+    {
+        new KillAchievement(GameManager.Instance.stageManager, 10);
+        new KillAchievement(GameManager.Instance.stageManager, 25);
+        new KillAchievement(GameManager.Instance.stageManager, 50);
+        new KillAchievement(GameManager.Instance.stageManager, 75);
+        new KillAchievement(GameManager.Instance.stageManager, 100);
+        new KillAchievement(GameManager.Instance.stageManager, 150);
+        new KillAchievement(GameManager.Instance.stageManager, 250);
+        new KillAchievement(GameManager.Instance.stageManager, 500);
+        new KillAchievement(GameManager.Instance.stageManager, 1000);
     }
 
     private void Update()
@@ -62,8 +72,13 @@ public class PlayerController : MonoBehaviour
 
     private float AttackDamage()
     {
-        float damage = Mathf.RoundToInt(BaseAttack + Random.Range(1, Strength * Agility));
+        float damage = Mathf.RoundToInt(BaseAttack() + Random.Range(1, BaseAttack() * Agility) / 2);
         return damage;
+    }
+
+    private float BaseAttack()
+    {
+        return 5f * Strength;
     }
 
     private void TakeDamage(float Damage)
@@ -86,5 +101,34 @@ public class PlayerController : MonoBehaviour
         {
             EventManager.Instance.OnDamage(false, 0);
         }
+    }
+}
+
+public class KillAchievement
+{
+    readonly StageManager stageManager;
+
+    public int KillsToUnlock;
+
+    private void KillsUpdated()
+    {
+        if (stageManager.KillAmount + stageManager.StageKillCount >= KillsToUnlock)
+        {
+            AchievementGained();
+        }
+    }
+
+    public KillAchievement(StageManager stageManager, int killsToUnlock)
+    {
+        this.stageManager = stageManager;
+        KillsToUnlock = killsToUnlock;
+
+        EventManager.Instance.EnemyDeath += KillsUpdated;
+    }
+
+    private void AchievementGained()
+    {
+        Debug.Log($"You have gain the achievement for klling {KillsToUnlock} enemies!");
+        EventManager.Instance.EnemyDeath -= KillsUpdated;
     }
 }

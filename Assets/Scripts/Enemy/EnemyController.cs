@@ -61,6 +61,5 @@ public class EnemyController : MonoBehaviour
     private void ResetEnemy()
     {
         CurrentHealth = MaxHealth;
-        Debug.Log("Enemy is Dead!");
     }
 }
